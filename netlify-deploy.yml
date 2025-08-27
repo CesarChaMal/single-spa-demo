@@ -1,0 +1,26 @@
+# Netlify deployment configuration
+# Copy this to netlify.toml in your repository root
+
+[build]
+  command = "npm run install:all && npm run build:all"
+  publish = "single-spa-demo-root-config/dist"
+
+[build.environment]
+  NODE_VERSION = "16"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Individual microfrontend builds
+[[build.processing]]
+  skip_processing = false
+
+# Headers for CORS
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
