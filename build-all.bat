@@ -2,11 +2,21 @@
 echo Building Single-SPA Microfrontend Demo for Production...
 echo.
 
+REM Use correct Node.js version with nvm
+if exist .nvmrc (
+    echo Using Node.js version from .nvmrc...
+    nvm use >nul 2>&1
+    if %errorlevel% neq 0 (
+        echo Installing Node.js version from .nvmrc...
+        for /f %%i in (.nvmrc) do nvm install %%i && nvm use %%i
+    )
+)
+
 REM Check if Node.js is installed
 node --version >nul 2>&1
 if %errorlevel% neq 0 (
     echo Error: Node.js is not installed or not in PATH
-    echo Please install Node.js from https://nodejs.org/
+    echo Please install Node.js from https://nodejs.org/ or use nvm
     pause
     exit /b 1
 )

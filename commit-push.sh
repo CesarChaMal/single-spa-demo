@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "Committing and pushing changes..."
+echo
+
+git add .
+git commit -m "Update"
+
+git push
+
+echo
+echo "Done!"

@@ -2,6 +2,16 @@
 echo Deploying Single-SPA Microfrontends to Production...
 echo.
 
+REM Use correct Node.js version with nvm
+if exist .nvmrc (
+    echo Using Node.js version from .nvmrc...
+    nvm use >nul 2>&1
+    if %errorlevel% neq 0 (
+        echo Installing Node.js version from .nvmrc...
+        for /f %%i in (.nvmrc) do nvm install %%i && nvm use %%i
+    )
+)
+
 REM Check if AWS CLI is installed
 aws --version >nul 2>&1
 if %errorlevel% neq 0 (

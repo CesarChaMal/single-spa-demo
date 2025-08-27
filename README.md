@@ -94,12 +94,18 @@ sudo yum install awscli  # CentOS/RHEL
 
 ### Prerequisites
 
-- Node.js (v12 or higher)
+- Node.js (v16.20.0 recommended - see .nvmrc)
 - npm or yarn package manager
+- nvm (optional but recommended for Node.js version management)
 
 ### Installation & Development
 
-1. **Install dependencies for all microfrontends:**
+1. **Use correct Node.js version (if using nvm):**
+   ```bash
+   nvm use
+   ```
+
+2. **Install dependencies for all microfrontends:**
    ```bash
    npm run install:all
    ```

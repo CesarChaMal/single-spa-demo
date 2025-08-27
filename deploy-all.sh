@@ -3,6 +3,21 @@
 echo "Deploying Single-SPA Microfrontends to Production..."
 echo
 
+# Use correct Node.js version with nvm
+if [ -f .nvmrc ]; then
+    echo "Using Node.js version from .nvmrc..."
+    if command -v nvm &> /dev/null; then
+        nvm use
+        if [ $? -ne 0 ]; then
+            echo "Installing Node.js version from .nvmrc..."
+            nvm install
+            nvm use
+        fi
+    else
+        echo "Warning: nvm not found, using system Node.js"
+    fi
+fi
+
 # Check if AWS CLI is installed
 if ! command -v aws &> /dev/null; then
     echo "Error: AWS CLI is not installed"
