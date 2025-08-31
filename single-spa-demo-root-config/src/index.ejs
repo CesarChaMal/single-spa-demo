@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>single-spa demo</title>
   <meta name="importmap-type" content="systemjs-importmap" />
-  <script type="systemjs-importmap" src="//single-spa-demo.s3-eu-central-1.amazonaws.com/%40cesarchamal/importmap.json"></script>
   <% if (isLocal) { %>
   <script type="systemjs-importmap">
     {
@@ -18,6 +17,8 @@
       }
     }
   </script>
+  <% } else { %>
+  <script type="systemjs-importmap" src="https://single-spa-demo-774145483743.s3.eu-central-1.amazonaws.com/@cesarchamal/importmap.json"></script>
   <% } %>
   <script src="//cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js"></script>
   <script src="//cdn.jsdelivr.net/npm/systemjs/dist/system.min.js"></script>

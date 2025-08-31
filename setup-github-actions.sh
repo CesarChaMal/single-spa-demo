@@ -2,26 +2,26 @@
 
 echo "Setting up GitHub Actions workflows..."
 
-# Create .github/workflows directories for each microfrontend
-mkdir -p "single-spa-demo-root-config/.github/workflows"
-mkdir -p "single-spa-demo-nav/.github/workflows"
-mkdir -p "single-spa-demo-page-1/.github/workflows"
-mkdir -p "single-spa-demo-page-2/.github/workflows"
+# Create .github/workflows directory (single repo setup)
+mkdir -p ".github/workflows"
 
-# Copy GitHub Actions workflow files
-cp "single-spa-demo-root-config/github-deploy.yml" "single-spa-demo-root-config/.github/workflows/deploy.yml"
-cp "single-spa-demo-nav/github-deploy.yml" "single-spa-demo-nav/.github/workflows/deploy.yml"
-cp "single-spa-demo-page-1/github-deploy.yml" "single-spa-demo-page-1/.github/workflows/deploy.yml"
-cp "single-spa-demo-page-2/github-deploy.yml" "single-spa-demo-page-2/.github/workflows/deploy.yml"
-
-echo "✅ GitHub Actions workflows set up successfully!"
+echo "✅ GitHub Actions workflows directory created!"
+echo
+echo "Current setup (single repository):"
+echo "  .github/workflows/deploy-root.yml    - Root config deployment"
+echo "  .github/workflows/deploy-nav.yml     - Navigation deployment"
+echo "  .github/workflows/deploy-page1.yml   - Page 1 deployment"
+echo "  .github/workflows/deploy-page2.yml   - Page 2 deployment"
+echo "  .github/workflows/debug-secrets.yml - Debug secrets"
+echo
+echo "✅ All workflows are already configured!"
 echo
 echo "Next steps:"
-echo "1. Push each microfrontend to its own GitHub repository"
-echo "2. Add these secrets to each repository:"
+echo "1. Ensure GitHub secrets are set up:"
 echo "   - AWS_ACCESS_KEY_ID"
 echo "   - AWS_SECRET_ACCESS_KEY"
 echo "   - S3_BUCKET"
 echo "   - AWS_REGION"
 echo "   - ORG_NAME"
-echo "3. Push to main/master branch to trigger deployment"
+echo "2. Make changes in microfrontend directories to trigger deployments"
+echo "3. Check deployment status: bash check-github-actions.sh"
