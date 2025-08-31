@@ -63,6 +63,10 @@ function askQuestion() {
 }
 
 function saveConfig() {
+  // Generate IMPORTMAP_URL from other config values
+  const importmapUrl = `https://${config.S3_BUCKET}.s3.${config.S3_REGION}.amazonaws.com/@${config.ORG_NAME}/importmap.json`;
+  config.IMPORTMAP_URL = importmapUrl;
+  
   const envContent = Object.entries(config)
     .map(([key, value]) => `${key}=${value}`)
     .join('\n');

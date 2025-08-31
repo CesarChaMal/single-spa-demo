@@ -4,7 +4,26 @@ import path from "path";
 import https from "https";
 
 const importMapFilePath = path.resolve(process.cwd(), "importmap.json");
-const importMap = JSON.parse(fs.readFileSync(importMapFilePath));
+let importMap;
+
+// Initialize import map with shared dependencies if file doesn't exist or is empty
+try {
+  importMap = JSON.parse(fs.readFileSync(importMapFilePath));
+} catch (error) {
+  importMap = { imports: {} };
+}
+
+// Ensure shared dependencies are always present
+if (!importMap.imports) importMap.imports = {};
+if (!importMap.imports["single-spa"]) {
+  importMap.imports["single-spa"] = "https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js";
+}
+if (!importMap.imports["react"]) {
+  importMap.imports["react"] = "https://cdn.jsdelivr.net/npm/react@16.13.1/umd/react.production.min.js";
+}
+if (!importMap.imports["react-dom"]) {
+  importMap.imports["react-dom"] = "https://cdn.jsdelivr.net/npm/react-dom@16.13.1/umd/react-dom.production.min.js";
+}
 const s3Bucket = process.env.S3_BUCKET || 'single-spa-demo';
 const awsRegion = process.env.AWS_REGION || 'eu-central-1';
 const orgName = process.env.ORG_NAME || 'cesarchamal';
