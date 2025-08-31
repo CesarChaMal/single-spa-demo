@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Check if S3 bucket exists, create if not
-echo "Checking if S3 bucket exists...
+echo "Checking if S3 bucket exists..."
 if ! aws s3 ls "s3://$S3_BUCKET" 2>&1 | grep -q 'NoSuchBucket'; then
     echo "S3 bucket $S3_BUCKET exists"
 else

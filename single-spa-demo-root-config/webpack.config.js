@@ -32,7 +32,8 @@ module.exports = env => ({
       inject: false,
       template: "src/index.ejs",
       templateParameters: {
-        isLocal: env && env.isLocal === "true"
+        isLocal: env && env.isLocal === "true",
+        importmapUrl: process.env.IMPORTMAP_URL || 'https://single-spa-demo-774145483743.s3.eu-central-1.amazonaws.com/@cesarchamal/importmap.json'
       }
     }),
     new CleanWebpackPlugin()

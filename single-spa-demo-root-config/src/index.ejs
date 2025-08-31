@@ -21,7 +21,7 @@
     }
   </script>
   <% } else { %>
-  <script type="systemjs-importmap" src="<%= process.env.IMPORTMAP_URL %>"></script>
+  <script type="systemjs-importmap" src="<%= importmapUrl %>"></script>
   <% } %>
   <script src="//cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js"></script>
   <script src="//cdn.jsdelivr.net/npm/systemjs/dist/system.min.js"></script>
