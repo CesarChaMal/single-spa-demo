@@ -90,33 +90,62 @@ sudo yum install awscli  # CentOS/RHEL
 - **Netlify** - Free for static sites
 - **Vercel** - Free for personal projects
 
-## Quick Start
+## 🚀 Quick Start (5 minutes)
 
-### Prerequisites
+### Step 1: Development Setup
+```bash
+# Clone or navigate to project directory
+cd single-spa-demo
 
-- Node.js (v16.20.0 recommended - see .nvmrc)
-- npm or yarn package manager
-- nvm (optional but recommended for Node.js version management)
+# Use correct Node.js version (if using nvm)
+nvm use
 
-### Installation & Development
+# Install all dependencies
+npm run install:all
 
-1. **Use correct Node.js version (if using nvm):**
+# Start all microfrontends
+npm run start:all
+```
+
+**✅ Open http://localhost:9000 in your browser**
+
+### Step 2: Deployment Setup (Optional)
+
+**If you want to deploy to production:**
+
+1. **Create AWS Account** (free): https://aws.amazon.com/
+2. **Setup GitHub secrets**:
    ```bash
-   nvm use
+   bash create-secrets-gh.sh
+   ```
+3. **Deploy by pushing code**:
+   ```bash
+   git push origin main
    ```
 
-2. **Install dependencies for all microfrontends:**
-   ```bash
-   npm run install:all
-   ```
+### 📋 What You Need
 
-2. **Start all microfrontends in development mode:**
-   ```bash
-   npm run start:all
-   ```
+**Required (for development):**
+- ✅ Node.js (v16.20.0 recommended)
+- ✅ npm or yarn
 
-3. **Open your browser:**
-   Navigate to `http://localhost:9000` to see the application
+**Optional (for deployment):**
+- 🔧 AWS Account
+- 🔧 GitHub Account
+
+### 🆘 Need Help?
+
+**Development not working?**
+- Check Node.js version: `node --version`
+- Try: `npm run clean:install`
+
+**Deployment failing?**
+- Check GitHub secrets: `bash check-github-secrets.sh`
+- Verify AWS credentials: `bash test-aws-credentials.sh`
+
+**Still stuck?**
+- Check troubleshooting section below
+- Review deployment guide: `DEPLOYMENT.md`
 
 ### Individual Microfrontend Development
 
@@ -140,6 +169,30 @@ npm run start:page1
 # Start only page 2 app
 npm run start:page2
 ```
+
+## Deployment Setup
+
+### 1. AWS Setup
+- Create AWS account at https://aws.amazon.com/
+- Create IAM user with S3 full access
+- Get Access Key ID and Secret Access Key
+
+### 2. GitHub Secrets
+**Automated (Recommended):**
+```bash
+bash create-secrets-gh.sh
+```
+
+**Manual:**
+Go to GitHub Settings → Secrets → Actions, add:
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY` 
+- `S3_BUCKET` = `single-spa-demo-774145483743`
+- `AWS_REGION` = `eu-central-1`
+- `ORG_NAME` = `cesarchamal`
+
+### 3. Deploy
+Push code to trigger GitHub Actions deployment to S3.
 
 ## Available Scripts
 
