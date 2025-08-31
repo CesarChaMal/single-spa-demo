@@ -40,7 +40,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION || 'eu-central-1' }}
+        aws-region: ${{ secrets.AWS_REGION }}
         
     - name: Deploy to S3 and update import map
       run: |
@@ -51,5 +51,5 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         S3_BUCKET: ${{ secrets.S3_BUCKET }}
-        AWS_REGION: ${{ secrets.AWS_REGION || 'eu-central-1' }}
-        ORG_NAME: ${{ secrets.ORG_NAME || 'cesarchamal' }}
+        AWS_REGION: ${{ secrets.AWS_REGION }}
+        ORG_NAME: ${{ secrets.ORG_NAME }}
