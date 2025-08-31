@@ -5,7 +5,7 @@
     "coverage": "jest --coverage",
     "lint": "eslint src",
     "prettier": "prettier --write './**'",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --port 9002",
     "test": "jest --passWithNoTests",
     "watch-tests": "jest --watch"
   },

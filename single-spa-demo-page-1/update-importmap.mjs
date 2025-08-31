@@ -5,7 +5,11 @@ import https from "https";
 
 const importMapFilePath = path.resolve(process.cwd(), "importmap.json");
 const importMap = JSON.parse(fs.readFileSync(importMapFilePath));
-const url = `https://single-spa-demo.s3-us-west-2.amazonaws.com/%40thawkin3/single-spa-demo-page-1/${process.env.TRAVIS_COMMIT}/thawkin3-single-spa-demo-page-1.js`;
+const s3Bucket = process.env.S3_BUCKET || 'single-spa-demo';
+const awsRegion = process.env.AWS_REGION || 'eu-central-1';
+const orgName = process.env.ORG_NAME || 'cesarchamal';
+const commitSha = process.env.TRAVIS_COMMIT || process.env.GITHUB_SHA;
+const url = `https://${s3Bucket}.s3-${awsRegion}.amazonaws.com/@${orgName}/single-spa-demo-page-1/${commitSha}/${orgName}-single-spa-demo-page-1.js`;
 
 https
   .get(url, res => {
@@ -16,7 +20,7 @@ https
         res.headers["content-type"].toLowerCase().trim() ===
           "application/javascript"
       ) {
-        const moduleName = `@thawkin3/single-spa-demo-page-1`;
+        const moduleName = `@${orgName}/single-spa-demo-page-1`;
         importMap.imports[moduleName] = url;
         fs.writeFileSync(importMapFilePath, JSON.stringify(importMap, null, 2));
         console.log(

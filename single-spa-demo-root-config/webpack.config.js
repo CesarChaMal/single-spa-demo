@@ -9,7 +9,7 @@ module.exports = env => ({
     libraryTarget: "system",
     path: path.resolve(__dirname, "dist")
   },
-  devtool: "sourcemap",
+  devtool: "source-map",
   module: {
     rules: [
       { parser: { system: false } },
@@ -25,7 +25,7 @@ module.exports = env => ({
     headers: {
       "Access-Control-Allow-Origin": "*"
     },
-    disableHostCheck: true
+    allowedHosts: "all"
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -37,5 +37,5 @@ module.exports = env => ({
     }),
     new CleanWebpackPlugin()
   ],
-  externals: ["single-spa", /^@thawkin3\/.+$/]
+  externals: ["single-spa", /^@cesarchamal\/.+$/]
 });

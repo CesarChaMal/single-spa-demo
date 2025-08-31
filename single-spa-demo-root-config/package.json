@@ -4,7 +4,7 @@
   "description": "A microfrontend app built with single-spa",
   "repository": {
     "type": "git",
-    "url": "https://github.com/thawkin3/single-spa-demo-root-config.git"
+    "url": "https://github.com/cesarchamal/single-spa-demo-root-config.git"
   },
   "keywords": [
     "demo",
@@ -19,7 +19,7 @@
     "build": "webpack --mode=production",
     "lint": "eslint src",
     "prettier": "prettier --write './**'",
-    "start:dev": "webpack-dev-server --mode=development --port 9000 --env.isLocal=true",
+    "start:dev": "webpack serve --mode=development --port 9000 --env isLocal=true",
     "start": "node server.js",
     "test": "jest"
   },
@@ -37,20 +37,20 @@
     "babel-eslint": "^11.0.0-beta.2",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
-    "eslint": "^6.7.2",
+    "eslint": "^9.34.0",
     "eslint-config-important-stuff": "^1.1.0",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-prettier": "^3.1.1",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^5.6.4",
     "husky": "^3.1.0",
-    "jest": "^24.9.0",
-    "jest-cli": "^24.9.0",
+    "jest": "^30.1.1",
+    "jest-cli": "^30.1.1",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
-    "serve": "^11.2.0",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
+    "serve": "^14.2.4",
+    "webpack": "^5.101.3",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.2.2"
   },
   "dependencies": {
     "express": "^4.17.1",

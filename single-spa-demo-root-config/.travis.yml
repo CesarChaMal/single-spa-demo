@@ -12,14 +12,14 @@ before_install:
 script:
   - yarn build
   - echo "Commit sha - $TRAVIS_COMMIT"
-  - mkdir -p dist/@thawkin3/root-config/$TRAVIS_COMMIT
-  - mv dist/*.* dist/@thawkin3/root-config/$TRAVIS_COMMIT/
+  - mkdir -p dist/@cesarchamal/root-config/$TRAVIS_COMMIT
+  - mv dist/*.* dist/@cesarchamal/root-config/$TRAVIS_COMMIT/
 deploy:
   provider: s3
   access_key_id: "$AWS_ACCESS_KEY_ID"
   secret_access_key: "$AWS_SECRET_ACCESS_KEY"
   bucket: "single-spa-demo"
-  region: "us-west-2"
+  region: "eu-central-1"
   cache-control: "max-age=31536000"
   acl: "public_read"
   local_dir: dist

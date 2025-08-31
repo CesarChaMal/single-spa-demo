@@ -11,7 +11,7 @@ This repo is used in conjunction with three other repos listed below. Together t
 
 ## Demo
 
-You can find the demo here: https://thawkin3-single-spa-demo.herokuapp.com/page1
+You can find the demo here: https://cesarchamal-single-spa-demo.herokuapp.com/page1
 
 # Article
 

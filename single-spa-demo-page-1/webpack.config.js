@@ -3,7 +3,7 @@ const singleSpaDefaults = require("webpack-config-single-spa-react");
 
 module.exports = webpackConfigEnv => {
   const defaultConfig = singleSpaDefaults({
-    orgName: "thawkin3",
+    orgName: "cesarchamal",
     projectName: "single-spa-demo-page-1",
     webpackConfigEnv
   });

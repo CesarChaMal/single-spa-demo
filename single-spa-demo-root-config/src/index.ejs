@@ -6,15 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>single-spa demo</title>
   <meta name="importmap-type" content="systemjs-importmap" />
-  <script type="systemjs-importmap" src="//single-spa-demo.s3-us-west-2.amazonaws.com/%40thawkin3/importmap.json"></script>
+  <script type="systemjs-importmap" src="//single-spa-demo.s3-eu-central-1.amazonaws.com/%40cesarchamal/importmap.json"></script>
   <% if (isLocal) { %>
   <script type="systemjs-importmap">
     {
       "imports": {
-        "@thawkin3/root-config": "http://localhost:9000/root-config.js",
-        "@thawkin3/single-spa-demo-nav": "http://localhost:9001/thawkin3-single-spa-demo-nav.js",
-        "@thawkin3/single-spa-demo-page-1": "http://localhost:9002/thawkin3-single-spa-demo-page-1.js",
-        "@thawkin3/single-spa-demo-page-2": "http://localhost:9003/thawkin3-single-spa-demo-page-2.js"
+        "@cesarchamal/root-config": "http://localhost:9000/root-config.js",
+        "@cesarchamal/single-spa-demo-nav": "http://localhost:9001/cesarchamal-single-spa-demo-nav.js",
+        "@cesarchamal/single-spa-demo-page-1": "http://localhost:9002/cesarchamal-single-spa-demo-page-1.js",
+        "@cesarchamal/single-spa-demo-page-2": "http://localhost:9003/cesarchamal-single-spa-demo-page-2.js"
       }
     }
   </script>
@@ -36,7 +36,7 @@
     <div id="page-2-container"></div>
   </main>
   <script>
-    System.import('@thawkin3/root-config');
+    System.import('@cesarchamal/root-config');
   </script>
   <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
 </body>
