@@ -29,13 +29,13 @@ const questions = [
   },
   {
     key: 'S3_REGION',
-    prompt: 'Enter your S3 region (default: us-west-2): ',
-    default: 'us-west-2'
+    prompt: 'Enter your S3 region (default: eu-central-1): ',
+    default: 'eu-central-1'
   },
   {
     key: 'ORG_NAME',
-    prompt: 'Enter your organization name (default: thawkin3): ',
-    default: 'thawkin3'
+    prompt: 'Enter your organization name (default: cesarchamal): ',
+    default: 'cesarchamal'
   }
 ];
 

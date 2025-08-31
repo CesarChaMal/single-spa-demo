@@ -5,10 +5,10 @@
   "private": true,
   "scripts": {
     "install:all": "npm run install:root && npm run install:nav && npm run install:page1 && npm run install:page2",
-    "install:root": "cd single-spa-demo-root-config && npm install",
-    "install:nav": "cd single-spa-demo-nav && npm install",
-    "install:page1": "cd single-spa-demo-page-1 && npm install",
-    "install:page2": "cd single-spa-demo-page-2 && npm install",
+    "install:root": "cd single-spa-demo-root-config && npm install --legacy-peer-deps",
+    "install:nav": "cd single-spa-demo-nav && npm install --legacy-peer-deps",
+    "install:page1": "cd single-spa-demo-page-1 && npm install --legacy-peer-deps",
+    "install:page2": "cd single-spa-demo-page-2 && npm install --legacy-peer-deps",
     "start:all": "concurrently \"npm run start:root\" \"npm run start:nav\" \"npm run start:page1\" \"npm run start:page2\"",
     "start:root": "cd single-spa-demo-root-config && npm run start:dev",
     "start:nav": "cd single-spa-demo-nav && npm start",
@@ -45,7 +45,13 @@
     "deploy:root": "cd single-spa-demo-root-config && npm run build && node ../deploy-to-s3.js root-config",
     "deploy:nav": "cd single-spa-demo-nav && npm run build && node ../deploy-to-s3.js nav",
     "deploy:page1": "cd single-spa-demo-page-1 && npm run build && node ../deploy-to-s3.js page-1",
-    "deploy:page2": "cd single-spa-demo-page-2 && npm run build && node ../deploy-to-s3.js page-2"
+    "deploy:page2": "cd single-spa-demo-page-2 && npm run build && node ../deploy-to-s3.js page-2",
+    "audit:fix": "npm run audit:root && npm run audit:nav && npm run audit:page1 && npm run audit:page2",
+    "audit:root": "cd single-spa-demo-root-config && npm audit fix --force",
+    "audit:nav": "cd single-spa-demo-nav && npm audit fix --force",
+    "audit:page1": "cd single-spa-demo-page-1 && npm audit fix --force",
+    "audit:page2": "cd single-spa-demo-page-2 && npm audit fix --force",
+    "stop:all": "node stop-services.js"
   },
   "devDependencies": {
     "concurrently": "^7.6.0",

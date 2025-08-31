@@ -2,17 +2,34 @@
 echo Starting Single-SPA Microfrontend Demo...
 echo.
 
+REM Use correct Node.js version with nvm
+if exist .nvmrc (
+    set /p NODE_VERSION=<.nvmrc
+    echo Using Node.js version %NODE_VERSION% from .nvmrc...
+    where nvm >nul 2>&1
+    if %errorlevel% equ 0 (
+        nvm use %NODE_VERSION%
+        if %errorlevel% neq 0 (
+            echo Installing Node.js version %NODE_VERSION%...
+            nvm install %NODE_VERSION%
+            nvm use %NODE_VERSION%
+        )
+    ) else (
+        echo Warning: nvm not found, using system Node.js
+    )
+)
+
 REM Check if Node.js is installed
-node --version >nul 2>&1
+where node >nul 2>&1
 if %errorlevel% neq 0 (
     echo Error: Node.js is not installed or not in PATH
-    echo Please install Node.js from https://nodejs.org/
+    echo Please install Node.js from https://nodejs.org/ or use nvm
     pause
     exit /b 1
 )
 
 REM Check if npm is installed
-npm --version >nul 2>&1
+where npm >nul 2>&1
 if %errorlevel% neq 0 (
     echo Error: npm is not installed or not in PATH
     pause
@@ -20,7 +37,7 @@ if %errorlevel% neq 0 (
 )
 
 echo Installing dependencies for all microfrontends...
-call npm run install:all
+npm run install:all
 if %errorlevel% neq 0 (
     echo Error: Failed to install dependencies
     pause
@@ -37,4 +54,4 @@ echo.
 echo Press Ctrl+C to stop all services
 echo.
 
-call npm run start:all
+npm run start:all

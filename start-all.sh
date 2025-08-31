@@ -3,10 +3,26 @@
 echo "Starting Single-SPA Microfrontend Demo..."
 echo
 
+# Use correct Node.js version with nvm
+if [ -f .nvmrc ]; then
+    NODE_VERSION=$(cat .nvmrc)
+    echo "Using Node.js version $NODE_VERSION from .nvmrc..."
+    if command -v nvm &> /dev/null; then
+        nvm use $NODE_VERSION
+        if [ $? -ne 0 ]; then
+            echo "Installing Node.js version $NODE_VERSION..."
+            nvm install $NODE_VERSION
+            nvm use $NODE_VERSION
+        fi
+    else
+        echo "Warning: nvm not found, using system Node.js"
+    fi
+fi
+
 # Check if Node.js is installed
 if ! command -v node &> /dev/null; then
     echo "Error: Node.js is not installed or not in PATH"
-    echo "Please install Node.js from https://nodejs.org/"
+    echo "Please install Node.js from https://nodejs.org/ or use nvm"
     exit 1
 fi
 

@@ -14,9 +14,9 @@ if (!microfrontendType) {
 const config = {
   AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
   AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
-  S3_BUCKET: process.env.S3_BUCKET || 'single-spa-demo',
-  S3_REGION: process.env.S3_REGION || 'us-west-2',
-  ORG_NAME: process.env.ORG_NAME || 'thawkin3'
+  S3_BUCKET: process.env.S3_BUCKET || 'single-spa-demo-774145483743',
+  S3_REGION: process.env.S3_REGION || process.env.AWS_REGION || 'eu-central-1',
+  ORG_NAME: process.env.ORG_NAME || 'cesarchamal'
 };
 
 // Validate required config
@@ -56,10 +56,12 @@ try {
   // Generate commit hash (or use timestamp if not in git repo)
   let commitHash;
   try {
-    commitHash = execSync('git rev-parse HEAD', { encoding: 'utf8' }).trim();
+    commitHash = execSync('git rev-parse HEAD', { encoding: 'utf8' }).trim().substring(0, 8);
   } catch {
-    commitHash = Date.now().toString();
+    commitHash = `manual-${Date.now()}`;
   }
+  
+  console.log(`📝 Using commit hash: ${commitHash}`);
 
   const distPath = path.join(mfConfig.folder, 'dist');
   const s3Path = `s3://${config.S3_BUCKET}/@${config.ORG_NAME}/${mfConfig.name}/${commitHash}/`;
@@ -112,8 +114,9 @@ try {
   fs.unlinkSync(importMapPath);
 
   console.log(`✅ ${mfConfig.name} deployed successfully!`);
-  console.log(`🌐 URL: ${importMap.imports[moduleKey]}`);
-  console.log(`📋 Import map updated`);
+  console.log(`🌐 Bundle URL: ${importMap.imports[moduleKey]}`);
+  console.log(`📋 Import map updated at: s3://${config.S3_BUCKET}/@${config.ORG_NAME}/importmap.json`);
+  console.log(`🎯 Website URL: https://${config.S3_BUCKET}.s3-website-${config.S3_REGION}.amazonaws.com`);
 
 } catch (error) {
   console.error('❌ Deployment failed:', error.message);

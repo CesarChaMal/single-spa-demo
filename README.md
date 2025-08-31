@@ -22,7 +22,7 @@ Each microfrontend can be developed, tested, and deployed independently while wo
 - **Development**: Webpack Dev Server for local development
 - **Testing**: Jest for unit testing
 - **Linting**: ESLint with Prettier for code quality
-- **CI/CD**: Travis CI for automated deployment
+- **CI/CD**: GitHub Actions for automated deployment
 - **Hosting**: AWS S3 for static asset hosting
 - **Import Maps**: SystemJS import maps for module resolution
 
@@ -38,8 +38,7 @@ Each microfrontend can be developed, tested, and deployed independently while wo
 **For Deployment:**
 - AWS Account (free tier available)
 - AWS CLI installed
-- GitHub Account
-- Travis CI Account (free for open source)
+- GitHub Account (for automated deployment)
 
 ### AWS Setup (Required for Deployment)
 
@@ -73,34 +72,40 @@ sudo apt install awscli  # Ubuntu/Debian
 sudo yum install awscli  # CentOS/RHEL
 ```
 
-### Travis CI Setup (Optional - for Automated Deployment)
+### GitHub Actions Setup (Recommended - Free)
 
-1. **Sign up**: Go to https://travis-ci.org/ and sign in with GitHub
-2. **Enable Repository**: Activate Travis CI for your GitHub repository
-3. **Add Environment Variables** in Travis CI settings:
-   - `AWS_ACCESS_KEY_ID`: Your AWS access key
-   - `AWS_SECRET_ACCESS_KEY`: Your AWS secret key
-   - `S3_BUCKET`: Your S3 bucket name
-4. **Push to master branch**: Travis will automatically deploy
+1. **Push code to GitHub repository**
+2. **Add AWS credentials** to GitHub Secrets:
+   - Go to repository Settings → Secrets and variables → Actions
+   - Add `AWS_ACCESS_KEY_ID`
+   - Add `AWS_SECRET_ACCESS_KEY`
+   - Add `S3_BUCKET`
+3. **GitHub Actions workflow** will be created automatically
+4. **Push to main branch** triggers deployment
 
-### Alternative: GitHub Actions (Modern Alternative to Travis CI)
+### Alternative Free CI/CD Options
 
-Travis CI is older. Consider GitHub Actions instead:
-
-1. **Create `.github/workflows/deploy.yml`** in your repo
-2. **Add AWS credentials** to GitHub Secrets
-3. **Push to main branch** triggers deployment
+- **GitHub Actions** (Recommended) - 2000 minutes/month free
+- **GitLab CI/CD** - 400 minutes/month free
+- **Netlify** - Free for static sites
+- **Vercel** - Free for personal projects
 
 ## Quick Start
 
 ### Prerequisites
 
-- Node.js (v12 or higher)
+- Node.js (v16.20.0 recommended - see .nvmrc)
 - npm or yarn package manager
+- nvm (optional but recommended for Node.js version management)
 
 ### Installation & Development
 
-1. **Install dependencies for all microfrontends:**
+1. **Use correct Node.js version (if using nvm):**
+   ```bash
+   nvm use
+   ```
+
+2. **Install dependencies for all microfrontends:**
    ```bash
    npm run install:all
    ```
@@ -202,7 +207,7 @@ single-spa-demo/
 
 **Import Maps** are a web standard that allows you to control how JavaScript modules are resolved. In this project, SystemJS uses import maps to:
 
-- **Map module names to URLs**: `@thawkin3/single-spa-demo-nav` → `http://localhost:9001/bundle.js`
+- **Map module names to URLs**: `@cesarchamal/single-spa-demo-nav` → `http://localhost:9001/bundle.js`
 - **Enable independent deployment**: Each microfrontend can update its URL without affecting others
 - **Support versioning**: Production URLs include commit SHAs for cache busting
 - **Provide environment flexibility**: Different URLs for development vs production
@@ -211,19 +216,19 @@ Example import map:
 ```json
 {
   "imports": {
-    "@thawkin3/single-spa-demo-nav": "http://localhost:9001/bundle.js",
-    "@thawkin3/single-spa-demo-page-1": "http://localhost:9002/bundle.js"
+    "@cesarchamal/single-spa-demo-nav": "http://localhost:9001/bundle.js",
+    "@cesarchamal/single-spa-demo-page-1": "http://localhost:9002/bundle.js"
   }
 }
 ```
 
-## CI/CD with Travis CI
+## CI/CD with GitHub Actions
 
-**Travis CI** is a continuous integration service that automatically builds and deploys your code when changes are pushed to GitHub.
+**GitHub Actions** is GitHub's free CI/CD service that automatically builds and deploys your code when changes are pushed.
 
-### What Travis CI Does:
+### What GitHub Actions Does:
 
-1. **Triggers on Push**: Automatically runs when code is pushed to the master branch
+1. **Triggers on Push**: Automatically runs when code is pushed to the main branch
 2. **Builds the Project**: Runs `npm run build` to create production bundles
 3. **Runs Tests**: Executes test suites to ensure code quality
 4. **Deploys to AWS S3**: Uploads built assets to Amazon S3 for hosting
@@ -232,11 +237,12 @@ Example import map:
 ### Deployment Flow:
 
 ```
-Code Push → Travis CI → Build → Test → Deploy to S3 → Update Import Map → Live
+Code Push → GitHub Actions → Build → Test → Deploy to S3 → Update Import Map → Live
 ```
 
 ### Benefits:
 
+- **Free**: 2000 minutes/month for public repos, unlimited for public repos
 - **Zero Downtime**: New versions go live instantly
 - **Independent Releases**: Each microfrontend deploys separately
 - **Automatic Rollbacks**: Easy to revert to previous versions
@@ -264,41 +270,27 @@ Code Push → Travis CI → Build → Test → Deploy to S3 → Update Import Ma
    # or double-click deploy-all.bat on Windows
    ```
 
-### Option 2: Travis CI (Automated)
+### Option 2: GitHub Actions (Automated - Recommended)
 
 **Setup Steps:**
 1. Push code to GitHub repository
-2. Sign up at https://travis-ci.org/
-3. Enable Travis CI for your repository
-4. Add environment variables in Travis CI dashboard:
+2. Add environment variables in GitHub Secrets:
    - `AWS_ACCESS_KEY_ID`
    - `AWS_SECRET_ACCESS_KEY` 
    - `S3_BUCKET`
-5. Push to master branch → automatic deployment
+3. Push to main branch → automatic deployment
 
-### Option 3: GitHub Actions (Modern Alternative)
+### Option 3: Alternative Free Platforms
 
-Create `.github/workflows/deploy.yml`:
-```yaml
-name: Deploy Microfrontends
-on:
-  push:
-    branches: [main]
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-      - run: npm run install:all
-      - run: npm run build:all
-      - run: npm run deploy:all
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-```
+**Netlify** (Free static hosting):
+- Connect GitHub repository
+- Automatic builds on push
+- No AWS needed
+
+**Vercel** (Free for personal projects):
+- Connect GitHub repository  
+- Automatic deployments
+- Built-in CDN
 
 ### Production Deployment (Travis CI)
 
@@ -328,7 +320,7 @@ node update-importmap.mjs
 - `AWS_ACCESS_KEY_ID`: AWS access key for S3 deployment
 - `AWS_SECRET_ACCESS_KEY`: AWS secret key for S3 deployment
 - `S3_BUCKET`: Your S3 bucket name
-- `S3_REGION`: AWS region (default: us-west-2)
+- `S3_REGION`: AWS region (default: eu-central-1)
 - `TRAVIS_COMMIT`: Git commit SHA (automatically set by Travis CI)
 
 ## Troubleshooting
@@ -349,10 +341,11 @@ node update-importmap.mjs
 - Verify S3 bucket allows public access
 - Check CORS settings on S3 bucket
 
-**Travis CI not deploying**
-- Verify environment variables are set in Travis CI dashboard
-- Check `.travis.yml` file exists in each microfrontend
-- Ensure you're pushing to `master` branch
+**GitHub Actions not deploying**
+- Verify environment variables are set in GitHub Secrets
+- Check workflow file exists: `.github/workflows/deploy.yml`
+- Ensure you're pushing to `main` or `master` branch
+- Check Actions tab in GitHub repository for error logs
 
 ### Development vs Production
 
@@ -380,8 +373,9 @@ node update-importmap.mjs
 - [Microfrontend Architecture Guide](https://micro-frontends.org/)
 - [SystemJS Documentation](https://github.com/systemjs/systemjs)
 - [AWS S3 Static Website Hosting](https://docs.aws.amazon.com/s3/latest/userguide/WebsiteHosting.html)
-- [Travis CI Documentation](https://docs.travis-ci.com/)
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
+- [Netlify Documentation](https://docs.netlify.com/)
+- [Vercel Documentation](https://vercel.com/docs)
 
 ## License
 
